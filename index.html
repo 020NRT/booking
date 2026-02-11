@@ -425,7 +425,6 @@ input:focus, select:focus, textarea:focus {
 
 <div class="container">
 
-<!-- Welcome -->
 <div id="welcome" class="section active">
     <div class="welcome-hero">
         <h1>Добро пожаловать в Reserve</h1>
@@ -437,7 +436,6 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- Login -->
 <div id="login" class="section">
     <div class="card" style="max-width:500px;margin:0 auto;">
         <h2 style="font-size:28px;font-weight:700;margin-bottom:24px;text-align:center;">Вход в аккаунт</h2>
@@ -457,7 +455,6 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- Register -->
 <div id="register" class="section">
     <div class="card" style="max-width:500px;margin:0 auto;">
         <h2 style="font-size:28px;font-weight:700;margin-bottom:24px;text-align:center;">Регистрация</h2>
@@ -488,7 +485,6 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- Restaurants -->
 <div id="restaurants" class="section">
     <h2 style="font-size:32px;font-weight:700;margin-bottom:24px;">Рестораны</h2>
     <div class="filters">
@@ -500,7 +496,6 @@ input:focus, select:focus, textarea:focus {
     <div class="restaurant-grid" id="restaurant-list"></div>
 </div>
 
-<!-- Booking -->
 <div id="booking" class="section">
     <div class="card" style="max-width:1000px;margin:0 auto;">
         <h2 style="font-size:28px;font-weight:700;margin-bottom:6px;" id="booking-title">Бронирование</h2>
@@ -549,7 +544,6 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- Menu Selection -->
 <div id="menu-selection" class="section">
     <div class="card" style="max-width:1200px;margin:0 auto;">
         <h2 style="font-size:28px;font-weight:700;margin-bottom:8px;">Меню <span id="menu-restaurant-name"></span></h2>
@@ -570,7 +564,6 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- Confirmation -->
 <div id="confirmation" class="section">
     <div class="card" style="max-width:700px;margin:0 auto;text-align:center;">
         <div class="confirm-circle">✓</div>
@@ -583,19 +576,16 @@ input:focus, select:focus, textarea:focus {
     </div>
 </div>
 
-<!-- History -->
 <div id="history" class="section">
     <h2 style="font-size:32px;font-weight:700;margin-bottom:24px;">История бронирований</h2>
     <div id="history-list"></div>
 </div>
 
-<!-- Favorites -->
 <div id="favorites" class="section">
     <h2 style="font-size:32px;font-weight:700;margin-bottom:24px;">Избранное</h2>
     <div class="restaurant-grid" id="favorites-list"></div>
 </div>
 
-<!-- Profile -->
 <div id="profile" class="section">
     <div class="card" style="max-width:600px;margin:0 auto;">
         <div id="profile-info"></div>
@@ -1128,7 +1118,7 @@ async function deleteBooking(bookingId) {
 
         const data = await res.json();
         showToast('✓ Бронирование успешно отменено');
-        loadHistory(); // Перезагружаем историю
+        loadHistory();
     } catch(e) {
         showToast('⚠️ Ошибка при удалении бронирования');
         console.error(e);
