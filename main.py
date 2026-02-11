@@ -8,7 +8,7 @@ import hashlib
 import random
 import string
 import re
-from datetime import datetime, date
+from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -16,7 +16,6 @@ import os
 
 app = FastAPI()
 
-# --- CORS ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,15 +24,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# --- Email Config ---
 EMAIL_SENDER = os.getenv("EMAIL_SENDER", "t.nurtore09@gmail.com")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "hmpi ddxd jset bofc")
 
 
-# --- Models ---
 class UserCreate(BaseModel):
     name: str
     phone: Optional[str] = None
@@ -148,12 +144,10 @@ class FavoriteToggle(BaseModel):
     restaurant_id: int
 
 
-# --- "Databases" ---
 users_db: dict = {}
 users: List[User] = []
 verification_codes: dict = {}
 
-# Menus
 menu_zevra = [
     MenuItem(id=1, name="Капучино", category="Напитки", price=1200,
              description="Классический итальянский кофе с молочной пеной",
@@ -264,7 +258,6 @@ next_user_id = 1
 next_booking_id = 1
 
 
-# --- Helper Functions ---
 def format_phone(phone: str) -> str:
     phone = re.sub(r'[\s\-\(\)]', '', phone)
     if not phone.startswith('+'):
@@ -283,7 +276,6 @@ def generate_code() -> str:
 
 
 def send_email(to_email: str, subject: str, body: str):
-    """Send email via Gmail SMTP SSL"""
     try:
         msg = MIMEMultipart('alternative')
         msg['Subject'] = subject
@@ -315,7 +307,6 @@ def send_email(to_email: str, subject: str, body: str):
         return False
 
 
-# --- Endpoints ---
 @app.get("/")
 def get_home():
     return FileResponse("static/index.html")
@@ -506,10 +497,8 @@ def list_bookings():
     return bookings
 
 
-# --- Booking Deletion and History Endpoints ---
 @app.delete("/bookings/{booking_id}")
 def delete_booking(booking_id: int, user_id: int):
-    """Delete a booking if it belongs to the user and hasn't passed."""
     global bookings
 
     booking_index = None
@@ -581,7 +570,6 @@ Reserve"""
 
 @app.get("/bookings/user/{user_id}")
 def get_user_bookings(user_id: int):
-    """Get all bookings for a specific user with enhanced information."""
     user_bookings = [b for b in bookings if b.user_id == user_id]
 
     enhanced_bookings = []
