@@ -42,6 +42,8 @@ scripts/backup_db.sh   резервное копирование БД и фот�
 docs/                  API, тестирование
 ```
 
+> **Пошаговая инструкция: запуск на своём компьютере и выкладка на хостинг — [docs/DEPLOY.md](docs/DEPLOY.md).**
+
 ## Быстрый запуск (одна команда)
 
 Нужны Homebrew-пакеты: `brew install postgresql@16 node python@3.13` (если ещё не стоят).
@@ -90,6 +92,9 @@ cd backend && .venv/bin/pytest -q
 Тесты пересоздают схему в базе из `TEST_DATABASE_URL` и отказываются запускаться, если в имени базы нет `test`.
 
 ## Продакшн
+
+Готовые варианты: `docker-compose.yml` (свой сервер: приложение + PostgreSQL + HTTPS через Caddy + ежедневные бэкапы) и `render.yaml` (Render.com). Пошагово — в [docs/DEPLOY.md](docs/DEPLOY.md). Ниже — ручной вариант без Docker.
+
 
 1. `cd frontend && npm ci && npm run build` → `frontend/dist`. Если папка существует, FastAPI сам отдаёт фронтенд, поэтому достаточно одного процесса: `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2`.
    Вариант: отдавать `dist/` через nginx, а `/api` и `/media` проксировать на uvicorn.

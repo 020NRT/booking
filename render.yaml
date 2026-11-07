@@ -1,0 +1,41 @@
+# Render.com Blueprint: New + -> Blueprint -> select this repository.
+# Creates the web service (Docker) and a PostgreSQL database. See docs/DEPLOY.md.
+services:
+  - type: web
+    name: reserve
+    runtime: docker
+    plan: starter            # free plan sleeps and has no disk: uploads and timers would not work
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: media
+      mountPath: /app/backend/media
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: reserve-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PAYMENT_WEBHOOK_SECRET
+        generateValue: true
+      - key: SUPERADMIN_EMAIL
+        sync: false          # asked when the Blueprint is created
+      - key: SUPERADMIN_PASSWORD
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false          # e.g. https://reserve.onrender.com or your own domain
+      - key: CORS_ORIGINS
+        sync: false          # same value as PUBLIC_BASE_URL
+      - key: SEED_DEMO
+        value: "true"
+      - key: WEB_CONCURRENCY
+        value: "1"
+      - key: PAYMENT_PROVIDER
+        value: mock
+
+databases:
+  - name: reserve-db
+    databaseName: reserve
+    user: reserve
