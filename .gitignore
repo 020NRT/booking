@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Secrets & local data
+.env
+backend/media/
+backend/demo-credentials.txt
+backups/
+.pgdata/
+
+# Frontend
+node_modules/
+frontend/dist/
+*.log
+.DS_Store

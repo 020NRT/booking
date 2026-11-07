@@ -26,8 +26,8 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-EMAIL_SENDER = os.getenv("EMAIL_SENDER", "t.nurtore09@gmail.com")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "hmpi ddxd jset bofc")
+EMAIL_SENDER = os.getenv("EMAIL_SENDER", "")  # secret removed; set via environment
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")  # secret removed; set via environment
 
 
 class UserCreate(BaseModel):
