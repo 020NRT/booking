@@ -9,6 +9,7 @@ __pycache__/
 backend/media/
 backend/demo-credentials.txt
 backups/
+.pgdata/
 
 # Frontend
 node_modules/
